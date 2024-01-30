@@ -1,6 +1,6 @@
 let audio1 = new Audio();
-const audioCtx = new (window.AudioContext)();
-console.log(audioCtx)
+const audioContext = new (window.AudioContext)();
+console.log(audioContext)
 audio1.src = 'audio/Narvent-Memory-Reboot.mp3'
 
 const container = document.getElementById('container');
@@ -16,4 +16,10 @@ let analyser;
 
 container.addEventListener('click', () => {
     audio1.play();
+    audioSource = audioContext.createMediaElementSource(audio1);
+    analyser = audioContext.createAnalyser();
+    audioSource.connect(analyser);
+    analyser.connect(audioContext.destination);
+    analyser.fftSize = 64;
+    const bufferLength = analyser.frequencyBinCount;
 })
