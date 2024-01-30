@@ -26,7 +26,7 @@ container.addEventListener('click', () => {
     analyser = audioContext.createAnalyser();
     audioSource.connect(analyser);
     analyser.connect(audioContext.destination);
-    analyser.fftSize = 64;
+    analyser.fftSize = 128;
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
@@ -38,27 +38,36 @@ container.addEventListener('click', () => {
         x = 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         analyser.getByteFrequencyData(dataArray);
-        for(let i = 0; i < bufferLength; i++) {
-            // this will take the bar height and set it 
-            // equal to the dataArray of i, louder sounds 
-            // produce larger bars
-            barHeight = dataArray[i] * 2;
-            ctx.fillStyle = 'lime';
-            ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight)
-            // the x+= below will place the bars next to 
-            // one another along the x-axis
-            x += barWidth;
-        }
+        drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray)
         requestAnimationFrame(animate);
     }
     animate()
 });
 
+function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
+    for(let i = 0; i < bufferLength; i++) {
+        // this will take the bar height and set it 
+        // equal to the dataArray of i, louder sounds 
+        // produce larger bars
+        barHeight = dataArray[i] * 2;
+        const red = i * barHeight / 20;
+        const green = i * 4;
+        const blue =  barHeight / 2;
+        
+        // ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
+        ctx.fillStyle = 'rgb(' + red + ',' + green + ',' + blue + ')'
+        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight)
+        // the x+= below will place the bars next to 
+        // one another along the x-axis
+        x += barWidth;
+    }
+}
+
 file.addEventListener('change', function() {
     // console.log(this.files
     const files = this.files;
     const audio1 = document.getElementById('audio1');
-    // const audioContext = new (window.AudioContext)();
+    const audioContext = new (window.AudioContext)();
     audio1.src = URL.createObjectURL(files[0]);
     audio1.load();
     audio1.play();
@@ -79,18 +88,9 @@ file.addEventListener('change', function() {
         x = 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         analyser.getByteFrequencyData(dataArray);
-        for(let i = 0; i < bufferLength; i++) {
-            // this will take the bar height and set it 
-            // equal to the dataArray of i, louder sounds 
-            // produce larger bars
-            barHeight = dataArray[i] * 2;
-            ctx.fillStyle = 'lime';
-            ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight)
-            // the x+= below will place the bars next to 
-            // one another along the x-axis
-            x += barWidth;
-        }
+        drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray)
         requestAnimationFrame(animate);
     }
     animate()
 })
+
