@@ -17,7 +17,15 @@ button1.addEventListener('click', () => {
 })
 
 function playSound(){
-    audio1.play();
+    const oscillator = audioCtx.createOscillator();
+    oscillator.connect(audioCtx.destination)
+    oscillator.type = 'sine';
+    oscillator.start()
+    // audio1.play();
+    setTimeout(() => {
+        oscillator.stop();
+    },
+     200)
 }
 
 const button2 = document.getElementById('button2');
