@@ -30,7 +30,7 @@ container.addEventListener('click', () => {
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
-    const barWidth = canvas.width / bufferLength;
+    const barWidth = (canvas.width / 2 ) / bufferLength;
     let barHeight;
     let x;
 
@@ -56,9 +56,18 @@ function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
         
         // ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
         ctx.fillStyle = 'rgb(' + red + ',' + green + ',' + blue + ')'
-        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight)
+        ctx.fillRect(canvas.width / 2 - x, canvas.height - barHeight, barWidth, barHeight)
         // the x+= below will place the bars next to 
         // one another along the x-axis
+        x += barWidth;
+    }
+    for(let i = 0; i < bufferLength; i++) {
+        barHeight = dataArray[i] * 2;
+        const red = i * barHeight / 20;
+        const green = i * 4;
+        const blue =  barHeight / 2;
+        ctx.fillStyle = 'rgb(' + red + ',' + green + ',' + blue + ')'
+        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight)
         x += barWidth;
     }
 }
@@ -76,11 +85,11 @@ file.addEventListener('change', function() {
     analyser = audioContext.createAnalyser();
     audioSource.connect(analyser);
     analyser.connect(audioContext.destination);
-    analyser.fftSize = 64;
+    analyser.fftSize = 256;
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
-    const barWidth = canvas.width / bufferLength;
+    const barWidth = (canvas.width / 2) / bufferLength;
     let barHeight;
     let x;
 
