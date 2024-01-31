@@ -63,15 +63,15 @@ function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
     //     x += barWidth;
     // }
     for(let i = 0; i < bufferLength; i++) {
-        barHeight = dataArray[i] * 2;
-        const red = i * barHeight / 20;
-        const green = i / 2;
-        const blue =  barHeight;
-        ctx.fillStyle = 'magenta'
-        ctx.fillRect(x, canvas.height - barHeight - 30, barWidth, 10)
-        ctx.fillStyle = 'rgb(' + red + ',' + green + ',' + blue + ')'
-        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight)
+        barHeight = dataArray[i];
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2)
+        ctx.rotate(i * Math.PI * 2 / bufferLength);
+        const hue = i * 15;
+        ctx.fillStyle = 'hsl(' + hue + ',100%, 50%)'
+        ctx.fillRect(0, 0, barWidth, barHeight)
         x += barWidth;
+        ctx.restore();
     }
 }
 
