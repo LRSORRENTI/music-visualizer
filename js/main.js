@@ -73,6 +73,17 @@ function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
         x += barWidth;
         ctx.restore();
     }
+    // for(let i = 0; i < bufferLength; i++) {
+    //     barHeight = dataArray[i] * 1.5;
+    //     ctx.save();
+    //     ctx.translate(canvas.width / 2, canvas.height / 2)
+    //     ctx.rotate(i * Math.PI * 10 / bufferLength);
+    //     const hue = i * 0.3;
+    //     ctx.fillStyle = 'hsl(' + hue + ' ,100%,' + barHeight / 3 + '%)'
+    //     ctx.fillRect(0, 0, barWidth, barHeight)
+    //     x += barWidth;
+    //     ctx.restore();
+    // }
 }
 
 file.addEventListener('change', function() {
