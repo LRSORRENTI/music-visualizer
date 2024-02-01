@@ -4,25 +4,37 @@
   box-sizing: border-box;
 }
 
-/* body {
+body {
   background-color: rgb(24, 24, 24);
-} */
+}
 
 #container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: rgb(20, 20, 20);
+  /* position: absolute; */
+  /* top: 0;
+  left: 0; */
+  background: rgba(255, 255, 255, 0.984);
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  border: 2px solid red;
+}
+
+.canvas-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 #canvas1 {
-  position: absolute;
+  /* position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  left: 0; */
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  border: 2px solid blue;
   /* filter: blur(5px) contrast(10); */
 }
 
