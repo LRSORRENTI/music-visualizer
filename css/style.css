@@ -32,8 +32,8 @@ body {
   left: 0; */
   display: flex;
   justify-content: center;
-  width: 300px;
-  height: 300px;
+  width: 600px;
+  height: 600px;
   border: 2px solid blue;
   /* filter: blur(5px) contrast(10); */
 }

@@ -1,60 +1,44 @@
-// let audio1 = new Audio();
-// const audioContext = new (window.AudioContext)();
-// console.log(audioContext)
-// audio1.src = 'audio/Narvent-Memory-Reboot.mp3'
-
 const container = document.getElementById('container');
 
 const canvas = document.getElementById('canvas1');
 
 const file = document.getElementById('fileupload')
 
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const ctx = canvas.getContext('2d');
+
+let audioContext;
 let audioSource;
 let analyser;
 
-container.addEventListener('click', () => {
-    let audio1 = new Audio();
-    const audioContext = new (window.AudioContext)();
-    console.log(audioContext)
-    // audio1.src = 'audio/Narvent-Memory-Reboot.mp3'
-    audio1.play();
-    audioSource = audioContext.createMediaElementSource(audio1);
-    analyser = audioContext.createAnalyser();
-    audioSource.connect(analyser);
-    analyser.connect(audioContext.destination);
-    analyser.fftSize = 1024;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
+const audio1 = document.getElementById('audio1');
+const playButton = document.getElementById('playButton');
+const pauseButton = document.getElementById('pauseButton');
 
-    const barWidth = 15;
-    let barHeight;
-    let x;
-
-    function animate(){
-        x = 0;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        analyser.getByteFrequencyData(dataArray);
-        drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray)
-        requestAnimationFrame(animate);
-    }
-    animate()
+playButton.addEventListener('click', function() {
+  audio1.play();
 });
+
+pauseButton.addEventListener('click', function() {
+  audio1.pause();
+});
+
 // colors for visualizer
 const colors = [
-    'hsl(72, 100%, 50%)',  // #CFFF04
-    'hsl(182, 100%, 42%)', // #00D1DC
-    'hsl(59, 100%, 50%)',
-    'hsl(0, 11%, 100%)'
+    'hsl(160, 100%, 75%)', // #7fffd4
+    'hsl(165, 33%, 50%)',  // #59b2a2
+    'hsl(160, 100%, 92%)', // #dffff9
+    'hsl(160, 100%, 87%)', // #bffff3
+    // 'hsl(0, 0%, 100%)'     // #ffffff
 ];
 
 
 function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
+    // UNCOMMENT BELOW FOR BAR VISUALIZER RISING FROM 
+    // BOTTOM INSTEAD OF SPIRAL
+
     // for(let i = 0; i < bufferLength; i++) {
     //     // this will take the bar height and set it 
     //     // equal to the dataArray of i, louder sounds 
@@ -72,28 +56,28 @@ function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
     //     // one another along the x-axis
     //     x += barWidth;
     // }
-    // for(let i = 0; i < bufferLength; i++) {
-    //     barHeight = dataArray[i] * 1.5;
-    //     ctx.save();
-    //     ctx.translate(canvas.width / 2, canvas.height / 2)
-    //     ctx.rotate(i * Math.PI * 20 / bufferLength);
-    //     const hue = i * 0.3;
-    //     ctx.fillStyle = 'hsl(' + hue + ' ,100%,' + barHeight / 3 + '%)'
-    //     ctx.fillRect(0, 0, barWidth, barHeight)
-    //     x += barWidth;
-    //     ctx.restore();
-    // }
-    // for(let i = 10; i < bufferLength; i++) {
-    //     barHeight = dataArray[i] * 1.5;
-    //     ctx.save();
-    //     ctx.translate(canvas.width / 2, canvas.height / 2)
-    //     ctx.rotate(i * Math.PI * 100 / bufferLength);
-    //     const hue = i * 0.3;
-    //     ctx.fillStyle = 'hsl(' + hue + ' ,100%,' + barHeight / 3 + '%)'
-    //     ctx.fillRect(0, 0, barWidth, barHeight)
-    //     x += barWidth;
-    //     ctx.restore();
-    // }
+    for(let i = 0; i < bufferLength; i++) {
+        barHeight = dataArray[i] * 1.5;
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2)
+        ctx.rotate(i * Math.PI * 20 / bufferLength);
+        const hue = i * 0.3;
+        ctx.fillStyle = 'hsl(' + hue + ' ,100%,' + barHeight / 3 + '%)'
+        ctx.fillRect(0, 0, barWidth, barHeight)
+        x += barWidth;
+        ctx.restore();
+    }
+    for(let i = 10; i < bufferLength; i++) {
+        barHeight = dataArray[i] * 1.5;
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2)
+        ctx.rotate(i * Math.PI * 100 / bufferLength);
+        const hue = i * 0.3;
+        ctx.fillStyle = 'hsl(' + hue + ' ,100%,' + barHeight / 3 + '%)'
+        ctx.fillRect(0, 0, barWidth, barHeight)
+        x += barWidth;
+        ctx.restore();
+    }
     for (let i = 0; i < bufferLength; i++) {
         barHeight = dataArray[i] * 1.5;
         const color = colors[i % colors.length]; // Cycle through the color array
@@ -106,22 +90,23 @@ function drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray){
         ctx.restore();
     }
 }
+const initializeVisualizer = (audioElement) => {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext)();
+        audioSource = audioContext.createMediaElementSource(audioElement);
+        analyser = audioContext.createAnalyser();
+        audioSource.connect(analyser);
+        analyser.connect(audioContext.destination);
+        analyser.fftSize = 1024;
+    }
 
-// Function to initialize the visualizer
-function initializeVisualizer(audioElement) {
-    const audioContext = new (window.AudioContext)();
-    const audioSource = audioContext.createMediaElementSource(audioElement);
-    const analyser = audioContext.createAnalyser();
-    audioSource.connect(analyser);
-    analyser.connect(audioContext.destination);
-    analyser.fftSize = 1024; // or 2048 as in your file upload handling
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     const barWidth = 15;
     let barHeight;
     let x;
 
-    function animate() {
+    const animate = () => {
         x = 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         analyser.getByteFrequencyData(dataArray);
@@ -129,7 +114,7 @@ function initializeVisualizer(audioElement) {
         requestAnimationFrame(animate);
     }
     animate();
-}
+};
 
 // Get the default audio element and set up the visualization on play event
 const defaultAudio = document.getElementById('audio1');
