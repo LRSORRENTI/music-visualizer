@@ -21,9 +21,7 @@ body {
 }
 
 .canvas-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 }
 
 #canvas1 {
@@ -32,15 +30,31 @@ body {
   left: 0; */
   display: flex;
   justify-content: center;
-  width: 600px;
-  height: 600px;
+  margin: auto;
+  margin-top: 15%;
+
+  /* width: 30rem;
+  height: 30rem; */
   border: 2px solid blue;
   /* filter: blur(5px) contrast(10); */
 }
 
+@media (max-width: 300px) {
+  #canvas1 {
+    min-width: 20rem;
+    min-height: 20rem;
+  }
+}
+@media (max-width: 200px) {
+  #canvas1 {
+    width: 16rem;
+    height: 16rem;
+  }
+}
+
 #audio1 {
   width: 50%;
-  margin: 50px auto;
+  /* margin: 50px auto; */
   display: block;
 }
 
