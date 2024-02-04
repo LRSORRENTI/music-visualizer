@@ -36,16 +36,18 @@ html {
 }
 
 button {
-  /* padding: 10px 20px; */
+  padding: 10px 20px;
   /* margin: 0 10px; */
   border: none;
   border-radius: 5px;
   background-color: #007bff;
   color: white;
   cursor: pointer;
-  margin-left: 5px;
-  margin-right: 5px;
-  width: 63.5vh;
+  margin-top: 12px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  /* width: 63.5vh; */
   transition: background-color 0.3s;
 }
 
