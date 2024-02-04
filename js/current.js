@@ -4,10 +4,27 @@ const canvas = document.getElementById('canvas1');
 
 const file = document.getElementById('fileupload')
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// canvas.width = window.innerWidth;
+// canvas.height = window.innerHeight;
 
 const ctx = canvas.getContext('2d');
+function resizeCanvas() {
+    const width = canvas.clientWidth + 100;
+    const height = canvas.clientHeight + 300;
+    
+    // Check if canvas size is different from its drawing buffer size
+    if (canvas.width !== width || canvas.height !== height) {
+        // Set the internal size to match client size
+        canvas.width = width;
+        canvas.height = height;
+    }
+}
+
+// Initial resize
+resizeCanvas();
+
+// Ensure canvas size adjusts on window resize
+window.addEventListener('resize', resizeCanvas);
 
 let audioContext;
 let audioSource;
