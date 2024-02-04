@@ -23,8 +23,8 @@ html {
   align-items: center;
   justify-content: center;
   /* margin: auto; */
-  padding: 20px;
-  background-color: #fff;
+  /* padding: 20px; */
+  /* background-color: #fff; */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
@@ -32,17 +32,20 @@ html {
 .audioControls {
   display: flex;
   justify-content: center;
-  margin-top: 15px;
+  /* margin-top: 15px; */
 }
 
 button {
-  padding: 10px 20px;
-  margin: 0 10px;
+  /* padding: 10px 20px; */
+  /* margin: 0 10px; */
   border: none;
   border-radius: 5px;
   background-color: #007bff;
   color: white;
   cursor: pointer;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 63.5vh;
   transition: background-color 0.3s;
 }
 
@@ -51,7 +54,7 @@ button:hover {
 }
 
 .canvas-wrap {
-  margin-top: 20px;
+  margin-top: 5px;
   width: 90vw;
   max-width: 900px; /* Adjust based on your preference */
 }
@@ -61,16 +64,20 @@ canvas {
   height: auto;
   max-height: 600px; /* Adjust based on your preference */
   background-color: #000;
+  border-radius: 15px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  margin-bottom: 40px;
 }
 
 /* For tablets */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .canvas-wrap {
     width: 95vw;
   }
 
   button {
     padding: 8px 16px;
+    width: auto;
   }
 }
 
@@ -83,6 +90,7 @@ canvas {
   button {
     padding: 6px 12px;
     font-size: 14px;
+    width: auto;
   }
 
   #container {
@@ -99,5 +107,6 @@ canvas {
   button {
     padding: 5px 10px;
     font-size: 12px;
+    width: auto;
   }
 }
