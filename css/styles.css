@@ -24,12 +24,14 @@ html {
   justify-content: center;
   width: 90vw;
   max-width: 900px;
+  margin-top: 3px;
   /* margin: auto; */
   /* padding: 20px; */
   /* background-color: #fff; */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px px 10px;
   border-radius: 10px;
-  border: 1px solid #0056b3;
+  /* border: 3px solid #0056b3; */
+  border-style: groove;
 }
 
 .audioControls {
@@ -40,7 +42,7 @@ html {
 }
 
 button {
-  padding: 10px 20px;
+  padding: 8px 22px;
   /* margin: 0 10px; */
   border: none;
   border-radius: 5px;
@@ -77,17 +79,30 @@ canvas {
 }
 
 /* For tablets */
+
 @media (max-width: 1000px) {
   .canvas-wrap {
     width: 95vw;
   }
   #container {
     width: 95vw;
-    padding: 15px;
   }
   button {
     padding: 8px 16px;
-    width: auto;
+    width: 25.62rem;
+  }
+}
+
+@media (max-width: 915px) {
+  .canvas-wrap {
+    width: 70vw;
+  }
+  #container {
+    width: 70vw;
+  }
+  button {
+    padding: 8px 16px;
+    width: 26.62rem;
   }
 }
 
