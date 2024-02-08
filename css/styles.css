@@ -31,13 +31,14 @@ html {
   box-shadow: rgba(0, 0, 0, 0.35) 0px px 10px;
   border-radius: 10px;
   /* border: 3px solid #0056b3; */
-  border-style: groove;
+  /* border-style: groove; */
 }
 
-.audioControls {
+#audioControls {
   display: flex;
   justify-content: center;
-  border: 1px solid red;
+  /* background-color: red; */
+  /* border: 1px solid red; */
   /* margin-top: 15px; */
 }
 
@@ -53,7 +54,7 @@ button {
   margin-bottom: 10px;
   margin-left: 10px;
   margin-right: 10px;
-  width: 61vh;
+  width: 63vh;
   /* width: 63.5vh; */
   transition: background-color 0.3s;
 }
@@ -102,7 +103,7 @@ canvas {
   }
   button {
     padding: 8px 16px;
-    width: 26.62rem;
+    width: 10.27rem;
   }
 }
 
@@ -115,7 +116,7 @@ canvas {
   button {
     padding: 6px 12px;
     font-size: 14px;
-    width: auto;
+    width: 8rem;
   }
 
   #container {
@@ -133,6 +134,6 @@ canvas {
   button {
     padding: 5px 10px;
     font-size: 12px;
-    width: auto;
+    width: 6rem;
   }
 }
